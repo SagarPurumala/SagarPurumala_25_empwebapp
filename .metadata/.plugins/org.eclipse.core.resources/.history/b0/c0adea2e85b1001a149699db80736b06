@@ -1,0 +1,5 @@
+package com.capg.empwebapp.bean;
+
+public class Employee {
+
+}

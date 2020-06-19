@@ -1,0 +1,123 @@
+package com.capg.empwebapp.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.capg.empwebapp.bean.Employee;
+
+public class EmployeeDAOImple implements EmployeeDAO{
+
+	@Override
+	public Employee login(String email, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addEmployee(Employee employee) {
+		String url = "jdbc:mysql://localhost:3307/emp_db?useSSL=false&user=root&password=root";
+		String query = "insert into emp_db.ems_db values(?,?,?,?,?,?)";
+		try (Connection connection = DriverManager.getConnection(url);
+				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+			Class.forName("com.mysql.jdbc.Driver");
+			preparedStatement.setInt(1, employee.getId());
+			preparedStatement.setString(2, employee.getName());
+			preparedStatement.setLong(3, employee.getMobilenumber());
+			preparedStatement.setString(4, employee.getEmailid());
+			preparedStatement.setString(5,employee.getPassword());
+			preparedStatement.setInt(6,employee.getAge());
+
+			int res = preparedStatement.executeUpdate();
+
+			if (res != 0) {
+				return true;
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public List<Employee> viewEmployee() {
+		String url = "jdbc:mysql://localhost:3307/emp_db?useSSL=false&user=root&password=root";
+		String query = "select * from ems_db ";
+		
+		List<Employee> info = new LinkedList<Employee>();
+		try (Connection connection = DriverManager.getConnection(url);
+				PreparedStatement preparedStatement = connection.prepareStatement(query);
+				ResultSet res = preparedStatement.executeQuery();) {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			
+			while (res.next()) {
+				Employee beans = new Employee();
+				beans.setId(res.getInt("id"));
+				beans.setName(res.getString("name"));
+				beans.setEmailid(res.getString("emailId"));
+				beans.setMobilenumber(res.getLong("mobilenumber"));
+				beans.setPassword(res.getString("password"));
+				beans.setAge(res.getInt("age"));
+				info.add(beans);
+			}
+
+			if (info.isEmpty()) {
+				return null;
+			} else {
+				return info;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean deleteEmployee(int id) {
+		String url = "jdbc:mysql://localhost:3307/emp_db?useSSL=false&user=root&password=root";
+		String query = "delete from ems_db where id=?";
+
+		try (Connection connection = DriverManager.getConnection(url);
+				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+			Class.forName("com.mysql.jdbc.Driver");
+			preparedStatement.setInt(1, id);
+			int res = preparedStatement.executeUpdate();
+			if (res != 0) {
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateEmployee(Employee employee) {
+		String query = "update ems_db set name=? where id=?";
+		String url = "jdbc:mysql://localhost:3307/emp_db?useSSL=false&user=root&password=root";
+		try (Connection connection = DriverManager.getConnection(url);
+				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+			Class.forName("com.mysql.jdbc.Driver");
+			preparedStatement.setString(1, employee.getName());
+			preparedStatement.setInt(2, employee.getId());
+			int res = preparedStatement.executeUpdate();
+			if (res != 0) {
+				return true;
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+}
