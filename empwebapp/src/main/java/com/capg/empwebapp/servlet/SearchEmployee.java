@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.capg.empwebapp.bean.Employee;
 import com.capg.empwebapp.dao.EmployeeDAO;
 import com.capg.empwebapp.dao.EmployeeDAOImple;
-
+@WebServlet("./searchEmployee")
 public class SearchEmployee extends HttpServlet {
 //		@Override
 		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

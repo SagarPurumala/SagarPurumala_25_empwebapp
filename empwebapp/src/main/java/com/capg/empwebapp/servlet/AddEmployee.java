@@ -15,7 +15,7 @@ import com.capg.empwebapp.bean.Employee;
 import com.capg.empwebapp.dao.EmployeeDAO;
 import com.capg.empwebapp.dao.EmployeeDAOImple;
 
-@WebServlet("/register")
+@WebServlet("/addEmployee")
 public class AddEmployee  extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("id");

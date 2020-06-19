@@ -14,17 +14,13 @@ import com.capg.empwebapp.bean.Employee;
 import com.capg.empwebapp.dao.EmployeeDAO;
 import com.capg.empwebapp.dao.EmployeeDAOImple;
 
-@WebServlet("/search")
+
 public class SeeAllEmployeee extends HttpServlet{
 	 
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		 
-					EmployeeDAO dao = new EmployeeDAOImple();
-					List<Employee> list = dao.viewEmployee();
-					if (list != null && !list.isEmpty()) {
-			req.getRequestDispatcher("searchEmployee.html").forward(req, resp);
-					}
-		}
+			req.getRequestDispatcher("showEmployee.jsp").forward(req, resp);
 	}
 
+}
