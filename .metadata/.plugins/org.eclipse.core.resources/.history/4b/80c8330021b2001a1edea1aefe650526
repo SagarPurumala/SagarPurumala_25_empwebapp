@@ -1,0 +1,8 @@
+package com.capg.empwebapp.servlet;
+
+import javax.servlet.annotation.WebServlet;
+
+@WebServlet("/register")
+public class AddEmployee {
+	
+}

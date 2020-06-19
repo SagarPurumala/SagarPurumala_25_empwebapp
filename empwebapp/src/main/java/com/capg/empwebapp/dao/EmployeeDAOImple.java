@@ -24,12 +24,12 @@ public class EmployeeDAOImple implements EmployeeDAO{
 		try (Connection connection = DriverManager.getConnection(url);
 				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
 			Class.forName("com.mysql.jdbc.Driver");
-			preparedStatement.setInt(1, employee.getId());
+			preparedStatement.setString(1, employee.getId());
 			preparedStatement.setString(2, employee.getName());
-			preparedStatement.setLong(3, employee.getMobilenumber());
+			preparedStatement.setString(3, employee.getMobilenumber());
 			preparedStatement.setString(4, employee.getEmailid());
 			preparedStatement.setString(5,employee.getPassword());
-			preparedStatement.setInt(6,employee.getAge());
+			preparedStatement.setString(6,employee.getAge());
 
 			int res = preparedStatement.executeUpdate();
 
@@ -58,12 +58,12 @@ public class EmployeeDAOImple implements EmployeeDAO{
 			
 			while (res.next()) {
 				Employee beans = new Employee();
-				beans.setId(res.getInt("id"));
+				beans.setId(res.getString("id"));
 				beans.setName(res.getString("name"));
 				beans.setEmailid(res.getString("emailId"));
-				beans.setMobilenumber(res.getLong("mobilenumber"));
+				beans.setMobilenumber(res.getString("mobilenumber"));
 				beans.setPassword(res.getString("password"));
-				beans.setAge(res.getInt("age"));
+				beans.setAge(res.getString("age"));
 				info.add(beans);
 			}
 
@@ -107,7 +107,7 @@ public class EmployeeDAOImple implements EmployeeDAO{
 				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
 			Class.forName("com.mysql.jdbc.Driver");
 			preparedStatement.setString(1, employee.getName());
-			preparedStatement.setInt(2, employee.getId());
+			preparedStatement.setString(2, employee.getId());
 			int res = preparedStatement.executeUpdate();
 			if (res != 0) {
 				return true;
@@ -119,5 +119,31 @@ public class EmployeeDAOImple implements EmployeeDAO{
 		}
 		return false;
 	}
+	public Employee getEmployeeDetailsById(int id) {
+		String url = "jdbc:mysql://localhost:3307?user=root&password=root";
+		Employee employeeBean=new Employee();
+		String query = "select id, lastname, firstname, email, department, salary from demo.employees where id=?";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(url);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, employeeBean.getId());
+			ResultSet resultSet=preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				employeeBean.setId(resultSet.getString("id"));
+				employeeBean.setName(resultSet.getString("name"));
+				employeeBean.setMobilenumber(resultSet.getString("mobile"));
+				employeeBean.setEmailid(resultSet.getString("email"));
+				employeeBean.setPassword(resultSet.getString("password"));
+				employeeBean.setAge(resultSet.getString("age"));
+				return employeeBean;		
+				
+		} 
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return employeeBean;
+}
 
 }

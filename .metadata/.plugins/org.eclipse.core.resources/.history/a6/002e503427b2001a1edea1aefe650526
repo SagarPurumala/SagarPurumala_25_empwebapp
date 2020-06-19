@@ -1,0 +1,25 @@
+package com.capg.empwebapp.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.capg.empwebapp.bean.Employee;
+
+public class UpdateEmployee extends HttpServlet{
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		String id = req.getParameter("id1");
+		String lname = req.getParameter("name");
+		Employee bean = new EmployeeBean();
+		bean.setEmpId(Integer.parseInt(id));
+		bean.setLastname(lname);
+
+		EmployeeService service = new EmployeeServiceImple();
+		boolean check = service.update(bean);
+}
+}

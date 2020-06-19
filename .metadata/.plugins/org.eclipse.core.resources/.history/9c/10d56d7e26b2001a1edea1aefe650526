@@ -1,0 +1,5 @@
+package com.capg.empwebapp.servlet;
+
+public class DeleteEmployee {
+
+}

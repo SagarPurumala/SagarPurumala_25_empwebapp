@@ -1,0 +1,35 @@
+package com.capg.empwebapp.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.capg.empwebapp.bean.Employee;
+
+@WebServlet("/register")
+public class AddEmployee  extends HttpServlet{
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String id = req.getParameter("id");
+		String name = req.getParameter("name");
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
+		String mobile = req.getParameter("mobile");
+		String age = req.getParameter("age");
+		Employee bean = new Employee();
+		
+
+		EmployeeDAO dao = EmployeeDAOFactory.getEmployeeDAO();
+		boolean check= dao.register(bean);
+
+		if(check) {
+			req.getRequestDispatcher("login.html").forward(req, resp);
+		}
+		else {
+			req.getRequestDispatcher("register.html").forward(req, resp);
+		}
+	}
+}

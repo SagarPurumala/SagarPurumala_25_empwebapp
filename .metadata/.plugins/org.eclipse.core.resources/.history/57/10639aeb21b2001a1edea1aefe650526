@@ -1,0 +1,13 @@
+package com.capg.empwebapp.bean;
+
+import java.io.Serializable;
+
+public class Employee implements Serializable{
+	private String id;
+	private String name;
+	private String emailid;
+	private String password;
+	private String mobilenumber;
+	private String age;
+	
+}

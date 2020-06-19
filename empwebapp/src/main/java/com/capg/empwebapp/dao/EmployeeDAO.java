@@ -10,5 +10,5 @@ public interface EmployeeDAO {
 	List<Employee> viewEmployee();
 	boolean deleteEmployee(int id);
 	boolean updateEmployee(Employee employee);
-
+	public Employee getEmployeeDetailsById(int id);
 }
