@@ -5,7 +5,7 @@ import java.util.List;
 import com.capg.empwebapp.bean.Employee;
 
 public interface EmployeeDAO {
-	Employee login(String email, String password);
+	Employee login(int id, String password);
 	boolean addEmployee(Employee employee);
 	List<Employee> viewEmployee();
 	boolean deleteEmployee(int id);

@@ -12,8 +12,11 @@ import com.capg.empwebapp.bean.Employee;
 public class EmployeeDAOImple implements EmployeeDAO{
 
 	@Override
-	public Employee login(String email, String password) {
-		// TODO Auto-generated method stub
+	public Employee login(int id, String password) {
+		Employee bean = getEmployeeDetailsById(id);
+		if(!(bean !=null && bean.getPassword().equals(password))) {
+			bean = null;
+		}
 		return null;
 	}
 
@@ -24,12 +27,12 @@ public class EmployeeDAOImple implements EmployeeDAO{
 		try (Connection connection = DriverManager.getConnection(url);
 				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
 			Class.forName("com.mysql.jdbc.Driver");
-			preparedStatement.setString(1, employee.getId());
+			preparedStatement.setInt(1, employee.getId());
 			preparedStatement.setString(2, employee.getName());
-			preparedStatement.setString(3, employee.getMobilenumber());
+			preparedStatement.setLong(3, employee.getMobilenumber());
 			preparedStatement.setString(4, employee.getEmailid());
 			preparedStatement.setString(5,employee.getPassword());
-			preparedStatement.setString(6,employee.getAge());
+			preparedStatement.setInt(6,employee.getAge());
 
 			int res = preparedStatement.executeUpdate();
 
@@ -58,12 +61,12 @@ public class EmployeeDAOImple implements EmployeeDAO{
 			
 			while (res.next()) {
 				Employee beans = new Employee();
-				beans.setId(res.getString("id"));
+				beans.setId(res.getInt("id"));
 				beans.setName(res.getString("name"));
 				beans.setEmailid(res.getString("emailId"));
-				beans.setMobilenumber(res.getString("mobilenumber"));
+				beans.setMobilenumber(res.getLong("mobile"));
 				beans.setPassword(res.getString("password"));
-				beans.setAge(res.getString("age"));
+				beans.setAge(res.getInt("age"));
 				info.add(beans);
 			}
 
@@ -107,7 +110,7 @@ public class EmployeeDAOImple implements EmployeeDAO{
 				PreparedStatement preparedStatement = connection.prepareStatement(query);) {
 			Class.forName("com.mysql.jdbc.Driver");
 			preparedStatement.setString(1, employee.getName());
-			preparedStatement.setString(2, employee.getId());
+			preparedStatement.setInt(2, employee.getId());
 			int res = preparedStatement.executeUpdate();
 			if (res != 0) {
 				return true;
@@ -127,15 +130,15 @@ public class EmployeeDAOImple implements EmployeeDAO{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection(url);
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, employeeBean.getId());
+			preparedStatement.setInt(1, employeeBean.getId());
 			ResultSet resultSet=preparedStatement.executeQuery();
 			if(resultSet.next()) {
-				employeeBean.setId(resultSet.getString("id"));
+				employeeBean.setId(resultSet.getInt("id"));
 				employeeBean.setName(resultSet.getString("name"));
-				employeeBean.setMobilenumber(resultSet.getString("mobile"));
+				employeeBean.setMobilenumber(resultSet.getLong("mobile"));
 				employeeBean.setEmailid(resultSet.getString("email"));
 				employeeBean.setPassword(resultSet.getString("password"));
-				employeeBean.setAge(resultSet.getString("age"));
+				employeeBean.setAge(resultSet.getInt("age"));
 				return employeeBean;		
 				
 		} 

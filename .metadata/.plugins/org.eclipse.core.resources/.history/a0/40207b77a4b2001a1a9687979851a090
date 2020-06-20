@@ -1,0 +1,48 @@
+package com.capg.empwebapp.session;
+
+
+
+	@WebServlet("/loginServlet")
+	public class Login extends HttpServlet{
+		
+		private EmployeeService service= new EmployeeServiceImple();
+		
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+				throws ServletException, IOException {
+			
+			String empId= req.getParameter("id");
+			int id=Integer.parseInt(empId);
+			
+			String empPass= req.getParameter("password");
+			
+			EmployeeBeans employeeBeans = service.authenticate(id,empPass);
+						
+
+				
+				resp.setContentType("text/html");
+				PrintWriter out = resp.getWriter();
+				out.print("<html>");
+				out.print("<body>");
+				
+				if(employeeBeans != null) {
+					
+					HttpSession httpSession = req.getSession(true);
+					httpSession.setAttribute("loggedInEmployeeInfo", employeeBeans);
+					out.print("<h2 style='color :navy' > WELCOME !!"+ employeeBeans.getName()+"</h2>");
+					RequestDispatcher dispatcher= req.getRequestDispatcher("/form.html");
+					dispatcher.include(req,resp);
+					
+				}else {
+					out.print("<h1 style='color :red' > Invaild Credentials !!</h1>");
+					RequestDispatcher dispatcher= req.getRequestDispatcher("/login.html");
+					dispatcher.include(req,resp);
+				}
+				
+				out.print("<html>");
+				out.print("<body>");
+				
+				
+			}
+
+		
+	}

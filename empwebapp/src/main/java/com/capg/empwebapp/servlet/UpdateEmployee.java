@@ -21,7 +21,7 @@ public class UpdateEmployee extends HttpServlet{
 		String id = req.getParameter("id1");
 		String name = req.getParameter("name");
 		Employee bean = new Employee();
-		bean.setId(id);
+		bean.setId(Integer.parseInt(id));
 		bean.setName(name);
 
 		EmployeeDAO dao = new EmployeeDAOImple();

@@ -25,12 +25,12 @@ public class AddEmployee  extends HttpServlet{
 		String mobile = req.getParameter("mobile");
 		String age = req.getParameter("age");
 		Employee bean = new Employee();
-		bean.setId(id);
+		bean.setId(Integer.parseInt(id));
 		bean.setName(name);
 		bean.setEmailid(email);
 		bean.setPassword(password);
-		bean.setMobilenumber(mobile);
-		bean.setAge(age);
+		bean.setMobilenumber(Long.parseLong(mobile));
+		bean.setAge(Integer.parseInt(age));
 
 		EmployeeDAO dao = new EmployeeDAOImple();
 		boolean check= dao.addEmployee(bean);

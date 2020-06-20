@@ -3,16 +3,16 @@ package com.capg.empwebapp.bean;
 import java.io.Serializable;
 
 public class Employee implements Serializable{
-	private String id;
+	private int id;
 	private String name;
 	private String emailid;
 	private String password;
-	private String mobilenumber;
-	private String age;
-	public String getId() {
+	private long mobilenumber;
+	private int age;
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -33,16 +33,16 @@ public class Employee implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getMobilenumber() {
+	public long getMobilenumber() {
 		return mobilenumber;
 	}
-	public void setMobilenumber(String mobilenumber) {
+	public void setMobilenumber(long mobilenumber) {
 		this.mobilenumber = mobilenumber;
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	
